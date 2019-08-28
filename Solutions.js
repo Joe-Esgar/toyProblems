@@ -1,0 +1,146 @@
+// Find the Parity Outlier
+function findOutlier(integers) {
+  let evenArray = [];
+  let oddArray = [];
+  for (let i = 0; i < integers.length; i++) {
+    if (integers[i] % 2 === 0) {
+      evenArray.push(integers[i]);
+    } else {
+      oddArray.push(integers[i]);
+    }
+  }
+  if (oddArray.length === 1) {
+    return oddArray[0];
+  } else {
+    return evenArray[0];
+  }
+}
+
+// Regex validate pin code
+function validatePIN(pin) {
+  let regex = /[0-9]/gi;
+  if (pin.length > 6 || pin.length < 4 || pin.length === 5) {
+    return false;
+  }
+  var found = pin.match(regex);
+  if (found.length != pin.length) {
+    return false;
+  }
+  return true;
+}
+
+// Take a ten minute walk
+function isValidWalk(walk) {
+  var lat = 0;
+  var lon = 0;
+  if (walk.length != 10) {
+    return false;
+  } else {
+    for (let i = 0; i < walk.length; i++) {
+      if (walk[i] === "n") {
+        lat += 1;
+      }
+      if (walk[i] === "s") {
+        lat -= 1;
+      }
+      if (walk[i] === "e") {
+        lon -= 1;
+      }
+      if (walk[i] === "w") {
+        lon += 1;
+      }
+    }
+    if (lat != 0 || lon != 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
+// Find the unique number
+function findUniq(arr) {
+  let first = arr[0];
+  let other;
+  let check;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] != first) {
+      other = arr[i];
+    }
+  }
+  if (arr.indexOf(other) - arr.indexOf(first) > 1) {
+    check = arr[1];
+  } else {
+    check = arr[other + 1];
+  }
+  if (first === check) {
+    return other;
+  } else {
+    return first;
+  }
+}
+
+// Greed is Good
+function score(dice) {
+  var sorted = dice.sort((a, b) => a - b);
+  var count1 = 0;
+  var count2 = 0;
+  var count3 = 0;
+  var count4 = 0;
+  var count5 = 0;
+  var count6 = 0;
+  var score = 0;
+  for (let i = 0; i < dice.length; i++) {
+    if (dice[i] === 1) {
+      count1 += 1;
+    }
+    if (dice[i] === 2) {
+      count2 += 1;
+    }
+    if (dice[i] === 3) {
+      count3 += 1;
+    }
+    if (dice[i] === 4) {
+      count4 += 1;
+    }
+    if (dice[i] === 5) {
+      count5 += 1;
+    }
+    if (dice[i] === 6) {
+      count6 += 1;
+    }
+  }
+  if (count1 > 0) {
+    score += 1000 * Math.floor(count1 / 3) + 100 * (count1 % 3);
+  }
+  if (count2 > 0) {
+    score += 200 * Math.floor(count2 / 3);
+  }
+  if (count3 > 0) {
+    score += 300 * Math.floor(count3 / 3);
+  }
+  if (count4 > 0) {
+    score += 400 * Math.floor(count4 / 3);
+  }
+  if (count5 > 0) {
+    score += 500 * Math.floor(count5 / 3) + 50 * (count5 % 3);
+  }
+  if (count6 > 0) {
+    score += 600 * Math.floor(count6 / 3);
+  }
+
+  return score;
+}
+
+//Pete, the baker
+function cakes(recipe, available) {
+  var arr = [];
+  for (var prop in recipe) {
+    if (!available[prop]) {
+      arr.push(0);
+    } else {
+      arr.push(available[prop] / recipe[prop]);
+    }
+  }
+  return Math.floor(Math.min(...arr));
+}
