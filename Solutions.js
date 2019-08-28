@@ -144,3 +144,35 @@ function cakes(recipe, available) {
   }
   return Math.floor(Math.min(...arr));
 }
+
+// Most frequently used words in a text
+
+function topThreeWords(text) {
+  var noPunc = text.replace(/[.,?\/#!$%\^&\*;:{}=\-_\~()]/g, "").toLowerCase();
+  var words = noPunc.split(" ");
+  var occurances = {};
+  var topThree = [];
+  for (let i = 0; i < words.length; i++) {
+    if (!occurances[words[i]]) {
+      occurances[words[i]] = 1;
+    } else {
+      occurances[words[i]] += 1;
+    }
+  }
+  delete occurances[""];
+  delete occurances["'"];
+  var numOcc = Object.keys(occurances);
+  var numLoops = 3;
+  if (numOcc.length < 3) {
+    numLoops = numOcc.length;
+  }
+  for (let i = 0; i < numLoops; i++) {
+    topThree[i] = Object.keys(occurances).filter(x => {
+      return occurances[x] === Math.max.apply(null, Object.values(occurances));
+    });
+    topThree[i] = topThree[i][0];
+    delete occurances[topThree[i]];
+  }
+  topThree = topThree.reduce((acc, val) => acc.concat(val), []);
+  return topThree;
+}
