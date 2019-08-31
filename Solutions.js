@@ -206,6 +206,10 @@ function permutations(string) {
   return allPermutations;
 }
 
+// Play a hand of equal to 24! Params are numbers ranging from 1-13.
+// You must use each param only once. If any possible operations using only +-/* can return 24 you
+// must return one of those solutions.
+
 function equalTo24(a, b, c, d) {
   var one;
   var two;
