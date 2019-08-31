@@ -323,6 +323,13 @@ function equalTo24(a, b, c, d) {
       ) {
         return `${one} ${opOne}(${two} ${opTwo}(${three} ${opThree} ${four}))`;
       }
+      if (
+        eval(
+          `(${one} ${opOne}${two}) ${opTwo} (${three} ${opThree} ${four})`
+        ) === eval(24)
+      ) {
+        return `(${one} ${opOne}${two}) ${opTwo}  (${three} ${opThree} ${four})`;
+      }
     }
   }
   return "It's not possible!";
