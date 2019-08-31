@@ -176,3 +176,32 @@ function topThreeWords(text) {
   topThree = topThree.reduce((acc, val) => acc.concat(val), []);
   return topThree;
 }
+
+// find all permutations of a string
+
+function permutations(string) {
+  // array storage for values
+  var allPermutations = [];
+  // test case for single length strings
+  if (string.length === 1) {
+    allPermutations.push(string);
+    return allPermutations;
+  } else {
+    // run a for loop over the length of the string
+    for (var i = 0; i < string.length; i++) {
+      // variable that holds the first char of the string
+      var first = string[i];
+      // others is a concat of the first char to the char before i and the other characters
+      var others = string.substring(0, i) + string.substring(i + 1);
+      // otherPermutations holds the results of the recursively ran function with the remaining string char's passed in
+      var otherPermutations = permutations(others);
+      // looping over the otherPermutations array, we push the concatenated values of the current first value and the current value of otherPermutations if that value is not currently in the allPermutations array
+      for (var k = 0; k < otherPermutations.length; k++) {
+        if (allPermutations.includes(first + otherPermutations[k]) != true) {
+          allPermutations.push(first + otherPermutations[k]);
+        }
+      }
+    }
+  }
+  return allPermutations;
+}
