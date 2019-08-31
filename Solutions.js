@@ -205,3 +205,122 @@ function permutations(string) {
   }
   return allPermutations;
 }
+
+function equalTo24(a, b, c, d) {
+  var one;
+  var two;
+  var three;
+  var four;
+  var possiblePairs = [
+    [a, b, c, d],
+    [a, c, b, d],
+    [a, d, c, b],
+    [a, c, d, b],
+    [a, d, b, c],
+    [a, b, d, c],
+    [b, c, a, d],
+    [b, c, d, a],
+    [b, a, d, c],
+    [b, a, c, d],
+    [b, d, a, c],
+    [b, d, c, a],
+    [d, a, c, b],
+    [d, a, b, c],
+    [d, b, a, c],
+    [d, b, c, a],
+    [d, c, d, a],
+    [d, c, a, d],
+    [c, a, b, d],
+    [c, a, d, b],
+    [c, b, d, a],
+    [c, b, a, d],
+    [c, d, a, b],
+    [c, d, b, a]
+  ];
+  var operators = "++-";
+  function permutations(string) {
+    var allPermutations = [];
+    if (string.length === 1) {
+      allPermutations.push(string);
+      return allPermutations;
+    } else {
+      for (var i = 0; i < string.length; i++) {
+        var first = string[i];
+        var others = string.substring(0, i) + string.substring(i + 1);
+        var otherPermutations = permutations(others);
+        for (var k = 0; k < otherPermutations.length; k++) {
+          if (allPermutations.includes(first + otherPermutations[k]) != true) {
+            allPermutations.push(first + otherPermutations[k]);
+          }
+        }
+      }
+    }
+    return allPermutations;
+  }
+  var allOperators = permutations("+/-")
+    .concat(permutations("+-*"))
+    .concat(permutations("++-"))
+    .concat(permutations("++*"))
+    .concat(permutations("++/"))
+    .concat(permutations("--/"))
+    .concat(permutations("-//"))
+    .concat(permutations("--+"))
+    .concat(permutations("--*"))
+    .concat(permutations("**/"))
+    .concat(permutations("**+"))
+    .concat(permutations("**-"))
+    .concat(permutations("*-/"));
+  if (a + b + c + d === 24) {
+    return `${a} + ${b} + ${c} + ${d}`;
+  }
+  if (a * b * c * d === 24) {
+    return `${a} * ${b} * ${c} * ${d}`;
+  }
+  for (let i = 0; i < possiblePairs.length; i++) {
+    one = possiblePairs[i][0];
+    two = possiblePairs[i][1];
+    three = possiblePairs[i][2];
+    four = possiblePairs[i][3];
+    for (let k = 0; k < allOperators.length; k++) {
+      opOne = allOperators[k][0];
+      opTwo = allOperators[k][1];
+      opThree = allOperators[k][2];
+      if (
+        eval(`${one} ${opOne} ${two} ${opTwo} ${three} ${opThree} ${four}`) ===
+        eval(24)
+      ) {
+        return `${one} ${opOne} ${two} ${opTwo} ${three} ${opThree} ${four}`;
+      }
+      if (
+        eval(
+          `(${one} ${opOne} ${two}) ${opTwo} ${three} ${opThree} ${four}`
+        ) === eval(24)
+      ) {
+        return `(${one} ${opOne} ${two}) ${opTwo} ${three} ${opThree} ${four}`;
+      }
+      if (
+        eval(
+          `((${one} ${opOne} ${two}) ${opTwo} ${three}) ${opThree} ${four}`
+        ) === eval(24)
+      ) {
+        return `((${one} ${opOne} ${two}) ${opTwo} ${three}) ${opThree} ${four}`;
+      }
+      if (
+        eval(
+          `${one} ${opOne} ${two} ${opTwo} (${three} ${opThree} ${four})`
+        ) === eval(24)
+      ) {
+        return `${one} ${opOne} ${two} ${opTwo} (${three} ${opThree} ${four})`;
+      }
+      if (
+        eval(
+          `${one} ${opOne}(${two} ${opTwo}(${three} ${opThree} ${four}))`
+        ) === eval(24)
+      ) {
+        return `${one} ${opOne}(${two} ${opTwo}(${three} ${opThree} ${four}))`;
+      }
+    }
+  }
+  return "It's not possible!";
+}
+equalTo24(6, 1, 3, 4);
