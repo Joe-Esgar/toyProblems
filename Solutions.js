@@ -1,14 +1,18 @@
 // Find the Parity Outlier
 function findOutlier(integers) {
+  //  create two place holder arrays to hold values
   let evenArray = [];
   let oddArray = [];
+  // a for loop that runs each index of the integers parameter array
   for (let i = 0; i < integers.length; i++) {
+    // conditional statements that push the single odd or even value into its own array
     if (integers[i] % 2 === 0) {
       evenArray.push(integers[i]);
     } else {
       oddArray.push(integers[i]);
     }
   }
+  //  conditional statement that finds the array with the single value and returns said value
   if (oddArray.length === 1) {
     return oddArray[0];
   } else {
@@ -18,10 +22,13 @@ function findOutlier(integers) {
 
 // Regex validate pin code
 function validatePIN(pin) {
+  // a regular expression that captures all numeric values
   let regex = /[0-9]/gi;
-  if (pin.length > 6 || pin.length < 4 || pin.length === 5) {
+  // if statement that catches any length that isn't the propper 6
+  if (pin.length != 6) {
     return false;
   }
+  // if the pin does not match the regex we return false
   var found = pin.match(regex);
   if (found.length != pin.length) {
     return false;
@@ -178,11 +185,13 @@ function topThreeWords(text) {
 }
 
 // find all permutations of a string
+// I read alot of sources before I understood how to solve this particular problem and understand it
+// A recursive solution is the one that made the most sense to me in the end.
 
 function permutations(string) {
   // array storage for values
   var allPermutations = [];
-  // test case for single length strings
+  // test case for single length strings. Is actually the end point for recursion
   if (string.length === 1) {
     allPermutations.push(string);
     return allPermutations;
